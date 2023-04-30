@@ -1,0 +1,40 @@
+<Project>
+
+	<ItemGroup Label="Production">
+		<PackageReference Update="Microsoft.EntityFrameworkCore" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.EntityFrameworkCore.Relational" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.EntityFrameworkCore.SqlServer" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.EntityFrameworkCore.Tools" Version="$(NetNugetVersion)" />
+		<PackageReference Update="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+		<PackageReference Update="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Update="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+		<PackageReference Update="Serilog.AspNetCore" Version="6.0.1" />
+		<PackageReference Update="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+		<PackageReference Update="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+		<PackageReference Update="FluentValidation.AspNetCore" Version="11.2.2" />
+		<PackageReference Update="AutoMapper" Version="11.0.1" />
+		<PackageReference Update="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Update="Polly" Version="7.2.3" />
+		<PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.9" />
+		<PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.9" PrivateAssets="all" />
+		<PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.9" />
+		<PackageReference Update="Radzen.Blazor" Version="4.1.1" />
+		<PackageReference Update="Blazored.LocalStorage" Version="4.2.0" />
+	</ItemGroup>
+
+	<ItemGroup Label="Testing">
+		<PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+		<PackageReference Update="xunit" Version="2.4.1" />
+		<PackageReference Update="xunit.runner.visualstudio" Version="2.4.3" />
+		<PackageReference Update="Bogus" Version="34.0.1" />
+		<PackageReference Update="FluentAssertions" Version="6.7.0" />
+		<PackageReference Update="coverlet.collector" Version="3.1.2" />
+		<PackageReference Update="Acheve.TestHost" Version="3.3.0" />
+		<PackageReference Update="NSubstitute" Version="4.2.2" />
+	</ItemGroup>
+
+</Project>

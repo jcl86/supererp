@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetVersion)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Modules\Sales\Invoices\" />
+		<Folder Include="Modules\Sales\Orders\" />
+		<Folder Include="Modules\Supplies\" />
+	</ItemGroup>
+
+</Project>

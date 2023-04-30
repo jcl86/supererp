@@ -1,0 +1,107 @@
+﻿@inherits LayoutComponentBase
+
+@using Radzen
+@using Radzen.Blazor
+<RadzenDialog />
+<RadzenNotification />
+<RadzenTooltip />
+<RadzenContextMenu />
+
+<RadzenLayout>
+    <ChildContent>
+        <RadzenHeader>
+            <ChildContent>
+                <div class="row justify-content-start align-items-center">
+                    <div class="col-6 d-flex align-items-center">
+                        <RadzenSidebarToggle Click="@SidebarToggle0Click">
+                        </RadzenSidebarToggle>
+                        <RadzenLabel Text="RadzenCRM">
+                        </RadzenLabel>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end" style="z-index:1">
+                        <RadzenProfileMenu Style="z-index:5000">
+                            <ChildContent>
+                                <RadzenProfileMenuItem Path="counter" Icon="settings" Text="Counter">
+                                </RadzenProfileMenuItem>
+                                <RadzenProfileMenuItem Path="fetchdata" Icon="person" Text="Fetch data">
+                                </RadzenProfileMenuItem>
+                                <RadzenProfileMenuItem Path="application-roles" Icon="security" Text="Roles">
+                                </RadzenProfileMenuItem>
+                                <RadzenProfileMenuItem Text="Logout" Value="Logout" Icon="power_settings_new">
+                                </RadzenProfileMenuItem>
+                            </ChildContent>
+                            <Template>
+                                <RadzenLabel Text="FirstName">
+                                </RadzenLabel>
+                                <RadzenLabel Text="LastName">
+                                </RadzenLabel>
+                                <RadzenImage Path="https://i.picsum.photos/id/182/200/300.jpg?hmac=W6MnOpe7fP0LlNAyWl6rzWbjyLOM3ix2TXRcFx7vEPE" style="border-radius: 16px; height: 32px; width: 32px">
+                                </RadzenImage>
+                            </Template>
+                        </RadzenProfileMenu>
+                    </div>
+                </div>
+            </ChildContent>
+        </RadzenHeader>
+        <RadzenBody @ref="body0">
+            <ChildContent>
+                <RadzenContentContainer Name="main">
+                    @Body
+                </RadzenContentContainer>
+            </ChildContent>
+        </RadzenBody>
+        <RadzenSidebar @ref="sidebar0">
+            <ChildContent>
+                <RadzenPanelMenu style="height: 100%">
+                    <ChildContent>
+                        <RadzenPanelMenuItem Icon="home" Path="" Text="Dashboard">
+                        </RadzenPanelMenuItem>
+                        <RadzenPanelMenuItem Icon="perm_contact_calendar" Path="counter" Text="Counter">
+                        </RadzenPanelMenuItem>
+                        <RadzenPanelMenuItem Icon="work" Path="fetchdata" Text="Fetch data">
+                        </RadzenPanelMenuItem>
+                        <RadzenPanelMenuItem Icon="shopping_cart" Path="opportunities" Text="Opportunities">
+                        </RadzenPanelMenuItem>
+                        <RadzenPanelMenuItem Icon="settings" Text="Settings">
+                            <ChildContent>
+                                <RadzenPanelMenuItem Path="opportunity-statuses" Text="Opportunity Statuses">
+                                </RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Path="task-types" Text="Task Types">
+                                </RadzenPanelMenuItem>
+                                <RadzenPanelMenuItem Path="task-statuses" Text="Task Statuses">
+                                </RadzenPanelMenuItem>
+                            </ChildContent>
+                        </RadzenPanelMenuItem>
+                    </ChildContent>
+                </RadzenPanelMenu>
+            </ChildContent>
+        </RadzenSidebar>
+        <RadzenFooter Style="background-color:aqua">
+            <ChildContent>
+                <RadzenLabel Text="RadzenCRM, Copyright Ⓒ 2021">
+                </RadzenLabel>
+            </ChildContent>
+        </RadzenFooter>
+    </ChildContent>
+</RadzenLayout>
+
+@code {
+
+    protected RadzenBody body0;
+    protected RadzenSidebar sidebar0;
+
+    protected async System.Threading.Tasks.Task SidebarToggle0Click(dynamic args)
+    {
+        await InvokeAsync(() => { sidebar0.Toggle(); });
+
+        await InvokeAsync(() => { body0.Toggle(); });
+    }
+
+    protected async System.Threading.Tasks.Task Profilemenu0Click(dynamic args)
+    {
+        if (args.Value == "Logout")
+        {
+            //await Security.Logout();
+        }
+    }
+}

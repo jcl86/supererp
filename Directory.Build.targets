@@ -1,0 +1,6 @@
+<Project>
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.52" />
+  <PropertyGroup>
+    <CentralPackagesFile>$(MSBuildThisFileDirectory)build/package-versions.props</CentralPackagesFile>
+  </PropertyGroup>
+</Project>

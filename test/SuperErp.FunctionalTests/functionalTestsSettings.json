@@ -1,0 +1,12 @@
+﻿{
+  "ConnectionStrings": {
+    "SqlServer": ""
+  },
+  "SecretKey": "asgdfretdgc-/*sdljfsdfer",
+  "UserSettings": {
+    "DefaultAdministrator": {
+      "Username": "admin@email.com",
+      "Password": "Password1234-"
+    }
+  }
+}

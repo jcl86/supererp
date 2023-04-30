@@ -1,0 +1,93 @@
+﻿@page "/counter"
+@attribute [Authorize]
+@using Bogus
+
+<PageTitle>List</PageTitle>
+
+<RadzenCard>
+    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" class="mb-0">AutoComplete with placeholder</RadzenText>
+    <RadzenText TextStyle="TextStyle.Body2" class="mb-2">Start typing</RadzenText>
+    <RadzenAutoComplete Placeholder="Select a customer..."
+                        Data=@customers TextProperty="CompanyName"
+                        Change=@(args => OnChange(args, "AutoComplete with placeholder"))
+                        Style="width: 100%;" />
+</RadzenCard>
+
+<RadzenCard>
+    <RadzenText TextStyle="TextStyle.Subtitle2"
+                TagName="TagName.H3"
+                class="mb-0">
+        AutoComplete with Template
+    </RadzenText>
+    <RadzenText TextStyle="TextStyle.Body2" class="mb-2">Start typing</RadzenText>
+    <RadzenAutoComplete Placeholder="Select a customer..."
+                        Data=@orders
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        TextProperty="Customer.CompanyName"
+                        Change=@(args => OnChange(args, "AutoComplete with Template"))
+                        Style="width: 100%;">
+        <Template>
+            <div class="list-group-item d-flex justify-content-between align-items-start border-0" style="background-color:transparent">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">@context.Customer.CompanyName</div>
+                    @context.Item
+                </div>
+                <span class="badge bg-primary rounded-pill">@context.Quantity</span>
+            </div>
+        </Template>
+    </RadzenAutoComplete>
+</RadzenCard>
+
+<RadzenCard>
+    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Binding</RadzenText>
+    <RadzenDropDownDataGrid @bind-Value="@myOrder.SelectedCustomer"
+                            TValue="Customer"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true"
+                            AllowClear="true"
+                            Data=@customers
+                            Change=@(args => OnChange(args, "DropDownDataGrid")) Style="width: 100%">
+        <Template>
+            <div class="fw-bold">@context.CompanyName</div>
+        </Template>
+    </RadzenDropDownDataGrid>
+</RadzenCard>
+
+@code {
+    Order myOrder = new Order();
+
+    IEnumerable<Order> orders;
+    IEnumerable<Customer> customers;
+
+    protected override void OnInitialized()
+    {
+        int orderIds = 0;
+        var ordersFaker = new Faker<Order>()
+        .StrictMode(false)
+            .RuleFor(o => o.OrderId, f => orderIds++)
+            .RuleFor(o => o.Item, f => f.Lorem.Sentence())
+            .RuleFor(o => o.Quantity, f => f.Random.Number(1, 10))
+            .RuleFor(o => o.Customer, f => new Customer() { CustomerId = orderIds + 1000, CompanyName = f.Company.CompanyName() });
+        orders = ordersFaker.Generate(30);
+        customers = orders.Select(x => x.Customer).Distinct().ToList();
+    }
+
+    public class Order
+    {
+        public Customer Customer { get; set; }
+        public int OrderId { get; set; }
+        public string Item { get; set; }
+        public int Quantity { get; set; }
+        public Customer SelectedCustomer { get; set; }
+    }
+    public class Customer
+    {
+        public int CustomerId { get; set; }
+        public string CompanyName { get; set; }
+    }
+
+    void OnChange(object value, string name)
+    {
+        Console.WriteLine(myOrder?.SelectedCustomer?.CustomerId ?? -1);
+    }
+}

@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup Label="SDK Versions">
+    <NetTargetVersion>net6.0</NetTargetVersion>
+    <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Label="Nuget Packages Versions">
+    <NetNugetVersion>6.0.4</NetNugetVersion>
+  </PropertyGroup>
+</Project>

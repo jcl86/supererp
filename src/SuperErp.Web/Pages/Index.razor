@@ -1,0 +1,51 @@
+﻿@page "/"
+@inject DialogService DialogService
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+
+<RadzenButton Text="Show dialog with inline Blazor content" Click=@ShowInlineDialog />
+
+<RadzenButton Text=@($"Show OrderID: {orderID} details") Click=@OpenOrder />
+
+@code {
+    int orderID = 4;
+
+    async Task ShowInlineDialog()
+    {
+        var result = await DialogService.OpenAsync("Simple Dialog", ds =>
+    @<div>
+        <p Style="margin-bottom: 1rem">Confirm?</p>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Text="Ok" Click="() => ds.Close(true)" Style="margin-bottom: 10px; width: 150px" />
+                <RadzenButton Text="Cancel" Click="() => ds.Close(false)" ButtonStyle="ButtonStyle.Secondary" Style="margin-bottom: 10px; width: 150px" />
+                <RadzenButton Text="Refresh" Click="(() => { orderID = 10249; ds.Refresh(); })" ButtonStyle="ButtonStyle.Info" Style="margin-bottom: 10px; width: 150px" />
+                Order ID: @orderID
+            </div>
+        </div>
+    </div>
+    );
+
+        Console.WriteLine($"Dialog result: {result}");
+    }
+
+    public async Task OpenOrder()
+    {
+        var result = await DialogService.OpenAsync<DialogCardPage>($"Order {orderID}",
+                new Dictionary<string, object>() { { "OrderID", orderID } },
+                new DialogOptions() { Width = "700px", Height = "530px", Resizable = true, Draggable = true });
+
+        Console.WriteLine(result);
+    }
+}
+
+
+
+

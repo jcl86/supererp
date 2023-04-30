@@ -1,0 +1,75 @@
+﻿@page "/fetchdata"
+@inject HttpClient Http
+
+<PageTitle>Weather forecast</PageTitle>
+
+
+<RadzenText TextStyle="TextStyle.H3" TagName="TagName.H1" Class="my-4">
+    Weather forecast
+</RadzenText>
+<RadzenText TextStyle="TextStyle.Body1" Class="my-4">
+    Datagrid! Display tabular data with ease.
+</RadzenText>
+
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+        <RadzenDataGrid 
+            AllowFiltering="true" 
+            AllowColumnResize="true" 
+            AllowAlternatingRows="true" 
+            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            FilterMode="FilterMode.SimpleWithMenu" 
+            AllowSorting="true" 
+            PageSize="5" 
+            AllowPaging="true" 
+            PagerHorizontalAlign="HorizontalAlign.Left" 
+            ShowPagingSummary="true"
+            Data="@forecasts" 
+            TItem="WeatherForecast"
+            ContainsText="Contiene"
+            LogicalFilterOperator="LogicalFilterOperator.And">
+        <Columns>
+            <RadzenDataGridColumn TItem="WeatherForecast" Title="Photo" Frozen="true" Sortable="false" Filterable="false" Width="80px" TextAlign="TextAlign.Center">
+                <Template Context="data">
+                    <RadzenImage Path="https://picsum.photos/100" class="rz-gravatar" />
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="DateText" Title="Forec. date" Frozen="true" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="TemperatureC" Title="º Celsius" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="Summary" Title="Resumen" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="TemperatureF" Title="º Farenheit" />
+        </Columns>
+    </RadzenDataGrid>
+}
+
+
+@code {
+    private List<WeatherForecast> forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var fileForecasts = new List<WeatherForecast[]>();
+        foreach(var _ in Enumerable.Range(0, 50))
+        {
+            fileForecasts.Add(await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json"));
+        }
+        forecasts = fileForecasts.SelectMany(x => x).ToList();
+    }
+
+    public class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+        public string DateText => Date.ToShortDateString();
+
+        public int TemperatureC { get; set; }
+
+        public string Summary { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}
